@@ -38,6 +38,9 @@ int main(int argc, char **argv) {
 //            e = atoi(argv[i + 1]); //用哪种方法
 //        }
         if (argv[i][0] == '-' && argv[i][1] == 'l') {
+			//开始时间
+            struct timeval tvs, tve;
+            gettimeofday(&tvs, NULL);
             //求下界
             //读序列
             vector<string> T;
@@ -48,9 +51,6 @@ int main(int argc, char **argv) {
             vector<vector<vector<int>>> ST;
             //构建ST表
             contructSuccessorTable(T, ST, sigma);
-            //开始时间
-            struct timeval tvs, tve;
-            gettimeofday(&tvs, NULL);
             lower_mlcs = compute_lower_mlcs(ST, sigma, T, t);
             //结束时间
             gettimeofday(&tve, NULL);
