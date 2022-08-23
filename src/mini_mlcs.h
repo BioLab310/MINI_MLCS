@@ -26,6 +26,7 @@ struct cmp{
 int computer_level(vector<string> res);
 void mini_DAG_1_1(vector<string> res, int lower_mlcs, vector<vector<vector<int>>> ST, vector<char> sigma);
 void printMLCSs(vector<vector<struct Point_vec>> D,int k);
+void mini_mlcs(vector<string> res, int delta, int lower_mlcs);
 void compute_upper_bound(vector<string> T,int d,vector<int> &m,vector<vector<int>> &a, int t,int r,int e);
 void mini_DAG_1(vector<string> res, int lower_mlcs, vector<vector<vector<int>>> ST, vector<char> sigma,int q);
 int deal_with_theorem3(vector<string> T,vector<int> index,vector<vector<int>> &a,int i,int t,vector<int> r_index,int r,int true_l_mlcs);

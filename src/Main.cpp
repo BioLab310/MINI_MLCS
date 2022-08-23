@@ -8,6 +8,7 @@ int main(int argc, char **argv) {
     char *ref_path;
     char *sav_path;
     int t,d,N,L,r,e;
+	int lower_mlcs;
     for (int i = 0; i < argc; i++) {
         if (argv[i][0] == '-' && argv[i][1] == 'R') {
             ref_path = argv[i + 1];
@@ -30,12 +31,12 @@ int main(int argc, char **argv) {
         if (argv[i][0] == '-' && argv[i][1] == 'd') {
             d = atoi(argv[i + 1]); //抽取的序列个数
         }
-        if (argv[i][0] == '-' && argv[i][1] == 'r') {
-            r = atoi(argv[i + 1]); //计算r个匹配点的位置
-        }
-        if (argv[i][0] == '-' && argv[i][1] == 'e') {
-            e = atoi(argv[i + 1]); //用哪种方法
-        }
+//        if (argv[i][0] == '-' && argv[i][1] == 'r') {
+//            r = atoi(argv[i + 1]); //计算r个匹配点的位置
+//        }
+//        if (argv[i][0] == '-' && argv[i][1] == 'e') {
+//            e = atoi(argv[i + 1]); //用哪种方法
+//        }
         if (argv[i][0] == '-' && argv[i][1] == 'l') {
             //求下界
             //读序列
@@ -50,7 +51,7 @@ int main(int argc, char **argv) {
             //开始时间
             struct timeval tvs, tve;
             gettimeofday(&tvs, NULL);
-            int lower_mlcs = compute_lower_mlcs(ST, sigma, T, t);
+            lower_mlcs = compute_lower_mlcs(ST, sigma, T, t);
             //结束时间
             gettimeofday(&tve, NULL);
             double span = tve.tv_sec - tvs.tv_sec
@@ -62,9 +63,9 @@ int main(int argc, char **argv) {
             //读序列
             vector<string> T;
             readRef(T, ref_path);
-            vector<int> m(T[0].size(),100);
-            vector<vector<int>> a(r,vector<int>(T[0].size(),100));
-            compute_upper_bound(T,d,m,a ,t,r,e);
+//            vector<int> m(T[0].size(),100);
+//           vector<vector<int>> a(r,vector<int>(T[0].size(),100));
+            mini_mlcs(T,d,lower_mlcs);
         }
     }
 }

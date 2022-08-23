@@ -169,3 +169,52 @@ void contructSuccessorTable(vector<string> T, vector<vector<vector<int>>> &ST, v
         ST.push_back(v2d);
     }
 }
+
+
+void contructDistanceTable(vector<string> T, vector<vector<vector<int>>> &DT, vector<char> sigma) {
+    string s;//当前序列
+    vector<int> Q(36, 0);
+    //序列的个数
+    for (int i = 0; i < T.size(); i++) {
+        vector<vector<int>> v2d;
+        v2d.clear();
+        s = " " + T[i];//保证DT表从1开始
+        for (int j = 1; j < s.size(); j++) {
+            Q[s[j] - 'A'] += 1;
+        }
+        for (int j = 0; j < sigma.size(); j++) {
+            vector<int> v1d;
+            v1d.clear();
+            for (int k = 0; k < s.size(); k++) {
+                if (s[k] != sigma[j] && Q[sigma[j] - 'A'] != 0) {
+                    v1d.push_back(Q[sigma[j] - 'A']);
+                    continue;
+                } else if (s[k] == sigma[j] && Q[sigma[j] - 'A'] != 0) {
+                    Q[sigma[j] - 'A'] -= 1;
+                    v1d.push_back(Q[sigma[j] - 'A']);
+                } else {
+                    while (k < s.size()) {
+                        v1d.push_back(0);
+                        k++;
+                    }
+                }
+            }
+            v2d.push_back(v1d);
+        }
+        DT.push_back(v2d);
+    }
+}
+
+vector<vector<int>> computeMLCSByDp(string s1,string s2){
+    vector<vector<int>> dp(s1.size() + 1,vector<int>(s2.size() + 1,0));
+    for(int i = 0;i < s1.size();i++){
+        for(int j = 0;j < s2.size();j++){
+            if(s1[i] == s2[j]){
+                dp[i + 1][j + 1] = dp[i][j] + 1;
+            }else{
+                dp[i + 1][j + 1] = max(dp[i + 1][j],dp[i][j + 1]);
+            }
+        }
+    }
+    return dp;
+}
