@@ -60,12 +60,20 @@ int main(int argc, char **argv) {
             cout << lower_mlcs << endl;
         }
         if (argv[i][0] == '-' && argv[i][1] == 'u'){
+			//开始时间
+            struct timeval tvs, tve;
+            gettimeofday(&tvs, NULL);
             //读序列
             vector<string> T;
             readRef(T, ref_path);
 //            vector<int> m(T[0].size(),100);
 //           vector<vector<int>> a(r,vector<int>(T[0].size(),100));
             mini_mlcs(T,d,lower_mlcs);
+			//结束时间
+            gettimeofday(&tve, NULL);
+            double span = tve.tv_sec - tvs.tv_sec
+                          + (tve.tv_usec - tvs.tv_usec) / 1000000.0;
+            cout << "end time is: " << span << endl;
         }
     }
 }
